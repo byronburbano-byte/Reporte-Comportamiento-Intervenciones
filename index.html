@@ -11,7 +11,7 @@
     <style>
         * { font-family: 'Inter', sans-serif; }
         body {
-            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
             min-height: 100vh;
             padding: 2rem 1rem;
         }
@@ -28,11 +28,11 @@
             box-shadow: 0 30px 50px -16px rgba(0, 0, 0, 0.2);
         }
         .header-gradient {
-            background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%);
-            border-bottom: 4px solid #fbbf24;
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+            border-bottom: 4px solid #3b82f6;
         }
         .badge-2027 {
-            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            background: linear-gradient(135deg, #60a5fa, #3b82f6);
             color: white;
             font-weight: 700;
             padding: 0.15rem 0.8rem;
@@ -41,18 +41,18 @@
             letter-spacing: 0.5px;
         }
         .btn-primary {
-            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
             color: white;
             font-weight: 700;
             padding: 0.7rem 2.5rem;
             border-radius: 60px;
             border: none;
             transition: all 0.2s;
-            box-shadow: 0 8px 20px -6px rgba(220, 38, 38, 0.4);
+            box-shadow: 0 8px 20px -6px rgba(59, 130, 246, 0.4);
         }
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 14px 28px -8px rgba(220, 38, 38, 0.5);
+            box-shadow: 0 14px 28px -8px rgba(59, 130, 246, 0.5);
         }
         .btn-primary:disabled {
             opacity: 0.6;
@@ -81,8 +81,8 @@
             transition: all 0.15s;
         }
         .input-modern:focus {
-            border-color: #dc2626;
-            box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.15);
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
             outline: none;
         }
         select.input-modern {
@@ -109,10 +109,10 @@
             width: 1.1rem;
             height: 1.1rem;
             cursor: pointer;
-            accent-color: #dc2626;
+            accent-color: #3b82f6;
             flex-shrink: 0;
         }
-        .falta-item.checked { background: rgba(220, 38, 38, 0.08); }
+        .falta-item.checked { background: rgba(59, 130, 246, 0.10); }
         .category-card {
             background: white;
             border-radius: 1rem;
@@ -147,7 +147,7 @@
             background: white;
             border-radius: 1.5rem;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
-            border-left: 6px solid #dc2626;
+            border-left: 6px solid #3b82f6;
             transition: all 0.2s;
         }
         .observation-card:hover {
@@ -155,18 +155,18 @@
             transform: translateY(-2px);
         }
         .details-btn {
-            background: rgba(220, 38, 38, 0.12);
-            color: #dc2626;
+            background: rgba(59, 130, 246, 0.12);
+            color: #2563eb;
             font-weight: 600;
             padding: 0.4rem 1.2rem;
             border-radius: 40px;
             transition: all 0.2s;
-            border: 1px solid rgba(220, 38, 38, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.2);
             cursor: pointer;
             font-size: 0.8rem;
         }
         .details-btn:hover {
-            background: #dc2626;
+            background: #2563eb;
             color: white;
         }
         .delete-btn {
@@ -202,9 +202,9 @@
             transform: translateX(-50%) translateY(0);
         }
         .condor-icon {
-            color: #fbbf24;
+            color: #93c5fd;
             font-size: 2.2rem;
-            filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.4));
+            filter: drop-shadow(0 0 6px rgba(147, 197, 253, 0.5));
         }
         .fade-in {
             animation: fadeUp 0.6s ease forwards;
@@ -252,20 +252,20 @@
             <div class="flex items-center gap-4">
                 <div class="flex flex-col items-start">
                     <div class="flex items-center gap-2 flex-wrap">
-                        <i class="fas fa-shield-alt text-amber-300 text-2xl"></i>
+                        <i class="fas fa-shield-alt text-sky-300 text-2xl"></i>
                         <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight">Hope Christian Academy</h1>
                         <span class="badge-2027">2026-2027</span>
                     </div>
-                    <div class="flex items-center gap-3 mt-1 text-sm text-amber-100 flex-wrap">
-                        <span><i class="fas fa-heart text-amber-300 mr-1"></i> Reporte de Comportamiento DECE</span>
-                        <span><i class="fas fa-map-pin text-amber-300 mr-1"></i> Tabacundo</span>
+                    <div class="flex items-center gap-3 mt-1 text-sm text-sky-100 flex-wrap">
+                        <span><i class="fas fa-heart text-sky-300 mr-1"></i> Reporte de Comportamiento DECE</span>
+                        <span><i class="fas fa-map-pin text-sky-300 mr-1"></i> Tabacundo</span>
                         <span class="hidden sm:inline"><i class="fas fa-feather-alt condor-icon ml-1"></i></span>
                     </div>
                 </div>
             </div>
             <div class="flex flex-col items-end gap-1">
                 <div class="flex items-center gap-3 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
-                    <i class="fas fa-calendar-alt text-amber-300"></i>
+                    <i class="fas fa-calendar-alt text-sky-300"></i>
                     <span class="text-sm font-medium" id="current-date-display"></span>
                     <i class="fas fa-feather-alt condor-icon ml-2"></i>
                 </div>
@@ -279,11 +279,11 @@
             <!-- Información General -->
             <div class="glass-card p-6 md:p-8 rounded-3xl">
                 <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2 border-b border-slate-200/60 pb-3 mb-5">
-                    <i class="fas fa-user-graduate text-red-600 text-2xl"></i> Información General
+                    <i class="fas fa-user-graduate text-blue-600 text-2xl"></i> Información General
                 </h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-1"><i class="fas fa-user-tie text-red-500 mr-1"></i> Elaborado por (Docente)</label>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1"><i class="fas fa-user-tie text-blue-500 mr-1"></i> Elaborado por (Docente)</label>
                         <select id="elaboradoPor" name="elaboradoPor" class="input-modern w-full" required>
                             <option value="">-- Selecciona docente --</option>
                             <option>Adán Sevillano</option>
@@ -302,7 +302,7 @@
                             <option>Grace Montenegro</option>
                             <option>Ingrit Cabezas</option>
                             <option>Jessica Pozo</option>
-                            <option>Lady Hernández</option>
+                            <option>Nancy Maldonado</option>
                             <option>Laura Ina</option>
                             <option>Leslie Baraja</option>
                             <option>Marcela Orozco</option>
@@ -316,7 +316,7 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-1"><i class="fas fa-layer-group text-red-500 mr-1"></i> Curso / Grado</label>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1"><i class="fas fa-layer-group text-blue-500 mr-1"></i> Curso / Grado</label>
                         <select id="curso" name="curso" class="input-modern w-full" required>
                             <option value="">-- Selecciona un curso --</option>
                             <optgroup label="Elemental">
@@ -342,21 +342,21 @@
                         </select>
                     </div>
                     <div class="md:col-span-2">
-                        <label class="block text-sm font-semibold text-slate-700 mb-1"><i class="fas fa-user-graduate text-red-500 mr-1"></i> Estudiante</label>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1"><i class="fas fa-user-graduate text-blue-500 mr-1"></i> Estudiante</label>
                         <select id="estudiante" name="estudiante" class="input-modern w-full" required>
                             <option value="">-- Primero selecciona un curso --</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-1"><i class="fas fa-calendar-day text-red-500 mr-1"></i> Fecha</label>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1"><i class="fas fa-calendar-day text-blue-500 mr-1"></i> Fecha</label>
                         <input type="date" id="fecha" name="fecha" class="input-modern w-full" required />
                     </div>
                     <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-1"><i class="fas fa-clock text-red-500 mr-1"></i> Hora</label>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1"><i class="fas fa-clock text-blue-500 mr-1"></i> Hora</label>
                         <input type="time" id="hora" name="hora" class="input-modern w-full" required />
                     </div>
                     <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-1"><i class="fas fa-map-marker-alt text-red-500 mr-1"></i> Lugar</label>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1"><i class="fas fa-map-marker-alt text-blue-500 mr-1"></i> Lugar</label>
                         <select id="lugar" name="lugar" class="input-modern w-full" required>
                             <option value="">-- Selecciona --</option>
                             <option>Aula</option>
@@ -370,7 +370,7 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-1"><i class="fas fa-pen text-red-500 mr-1"></i> Especificar lugar (si es "Otro")</label>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1"><i class="fas fa-pen text-blue-500 mr-1"></i> Especificar lugar (si es "Otro")</label>
                         <input type="text" id="lugarOtro" name="lugarOtro" class="input-modern w-full" placeholder="Ej. Biblioteca" />
                     </div>
                 </div>
@@ -379,7 +379,7 @@
             <!-- Faltas -->
             <div class="glass-card p-6 md:p-8 rounded-3xl">
                 <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2 border-b border-slate-200/60 pb-3 mb-5">
-                    <i class="fas fa-exclamation-triangle text-red-600 text-2xl"></i> Faltas Cometidas
+                    <i class="fas fa-exclamation-triangle text-blue-600 text-2xl"></i> Faltas Cometidas
                 </h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     <div class="category-card cat-muy-leve">
@@ -416,7 +416,7 @@
             <!-- Indicadores Disruptivos -->
             <div class="glass-card p-6 md:p-8 rounded-3xl">
                 <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2 border-b border-slate-200/60 pb-3 mb-5">
-                    <i class="fas fa-bolt text-red-600 text-2xl"></i> Indicadores de Conductas Disruptivas Específicas
+                    <i class="fas fa-bolt text-blue-600 text-2xl"></i> Indicadores de Conductas Disruptivas Específicas
                 </h2>
                 <div id="indicadoresDisruptivos" class="grid grid-cols-1 md:grid-cols-2 gap-2"></div>
             </div>
@@ -424,7 +424,7 @@
             <!-- Descripción Detallada -->
             <div class="glass-card p-6 md:p-8 rounded-3xl">
                 <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2 border-b border-slate-200/60 pb-3 mb-5">
-                    <i class="fas fa-file-alt text-red-600 text-2xl"></i> Descripción Detallada del Suceso
+                    <i class="fas fa-file-alt text-blue-600 text-2xl"></i> Descripción Detallada del Suceso
                 </h2>
                 <textarea id="descripcion" name="descripcion" rows="5" class="input-modern w-full" placeholder="Describe detalladamente lo ocurrido..." required></textarea>
             </div>
@@ -432,16 +432,16 @@
             <!-- Razones Presuntas -->
             <div class="glass-card p-6 md:p-8 rounded-3xl">
                 <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2 border-b border-slate-200/60 pb-3 mb-5">
-                    <i class="fas fa-search text-red-600 text-2xl"></i> Razones Presuntas de la Conducta
+                    <i class="fas fa-search text-blue-600 text-2xl"></i> Razones Presuntas de la Conducta
                 </h2>
                 <div id="razonesPresuntas" class="grid grid-cols-1 md:grid-cols-2 gap-2"></div>
             </div>
 
             <!-- Frase final -->
             <div class="text-center text-sm text-slate-600 italic bg-white/60 backdrop-blur-sm p-4 rounded-2xl border border-white/40">
-                <i class="fas fa-quote-left text-red-400 mr-2"></i>
+                <i class="fas fa-quote-left text-blue-400 mr-2"></i>
                 "Este reporte es una herramienta restauradora orientada a guiar el corazón del estudiante conforme a los principios de Dios y HCA."
-                <i class="fas fa-quote-right text-red-400 ml-2"></i>
+                <i class="fas fa-quote-right text-blue-400 ml-2"></i>
             </div>
 
             <!-- Botón Guardar -->
@@ -456,7 +456,7 @@
         <div id="saved-reports" class="mt-16 fade-in">
             <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
                 <h2 class="text-2xl font-extrabold text-slate-800 flex items-center gap-2">
-                    <i class="fas fa-archive text-red-600"></i> Reportes Guardados
+                    <i class="fas fa-archive text-blue-600"></i> Reportes Guardados
                     <span id="count-badge" class="bg-slate-200 text-slate-700 text-sm font-bold px-3 py-0.5 rounded-full">0</span>
                 </h2>
                 <button id="download-excel-btn" class="btn-download">
@@ -465,7 +465,7 @@
             </div>
             <div id="reports-list" class="space-y-4">
                 <div class="text-center py-12 bg-white/50 rounded-3xl backdrop-blur-sm border border-white/30">
-                    <i class="fas fa-spinner fa-spin text-5xl block mb-3 text-red-400"></i>
+                    <i class="fas fa-spinner fa-spin text-5xl block mb-3 text-blue-400"></i>
                     <p class="text-slate-500">Cargando reportes desde Firebase...</p>
                 </div>
             </div>
@@ -492,10 +492,8 @@
         const db = getFirestore(app);
         const COLECCION = 'reportesDece';
 
-        // Exponer las funciones al script principal
         window.fb = { db, collection, addDoc, deleteDoc, doc, onSnapshot, query, orderBy, serverTimestamp, COLECCION };
 
-        // Disparar evento para que el script principal sepa que Firebase está listo
         window.dispatchEvent(new Event('firebase-ready'));
     </script>
 
@@ -503,237 +501,55 @@
     <!-- SCRIPT PRINCIPAL                                              -->
     <!-- ============================================================ -->
     <script>
-        // ============================================================
-        // LISTA DE ESTUDIANTES POR CURSO
-        // ============================================================
         const ESTUDIANTES_POR_CURSO = {
             'Segundo Grado EGB': [
-                'MAURICIO MIGUEL ARIAS LOMBANO',
-                'Rachell Belén Flores Conlago',
-                'ELIAN ADAN GORDON ANDRANGO',
-                'EIPRIEL JUDITH IMBAGO LANCHIMBA',
-                'ARLET NOHEMI MALDONADO GUAMAN',
-                'EZEQUIEL BENJAMÍN QUISHPE QUISHPE',
-                'ISABELLA SAENZ OLMEDO',
-                'Sol Arawi Tipan Guaján',
-                'EDGAR ELIAS TORRES REINA',
-                'JORDY GUIDO WIAKACH SHARIAN',
-                'SAMUEL ANTONIO ZAMBRANO VACA'
+                'MAURICIO MIGUEL ARIAS LOMBANO','Rachell Belén Flores Conlago','ELIAN ADAN GORDON ANDRANGO','EIPRIEL JUDITH IMBAGO LANCHIMBA','ARLET NOHEMI MALDONADO GUAMAN','EZEQUIEL BENJAMÍN QUISHPE QUISHPE','ISABELLA SAENZ OLMEDO','Sol Arawi Tipan Guaján','EDGAR ELIAS TORRES REINA','JORDY GUIDO WIAKACH SHARIAN','SAMUEL ANTONIO ZAMBRANO VACA'
             ],
             'Tercer Grado EGB': [
-                'MILA SOFIA COROZO CUZCO',
-                'LUCAS MOAD CORTES GARCIA',
-                'Paula Aitana Guerrero Mejía',
-                'Taylor Matias Molina López',
-                'ADIF POLANCO HERNÁNDEZ',
-                'TOMas ISAÍAS SIMBANA CUALCHI',
-                'XUE YING YANG YANG'
+                'MILA SOFIA COROZO CUZCO','LUCAS MOAD CORTES GARCIA','Paula Aitana Guerrero Mejía','Taylor Matias Molina López','ADIF POLANCO HERNÁNDEZ','TOMas ISAÍAS SIMBANA CUALCHI','XUE YING YANG YANG'
             ],
             'Cuarto Grado EGB': [
-                'EMILIANO SEBASTIÁN AREBALO PAEZ',
-                'CARLOS EFRAIN AVILES TAPUY',
-                'GAEL PATRICIO CABASCANGO CUASCOTA',
-                'DANAHE NICKOL FERNANDEZ COBACANGO',
-                'ROSALIA ISABEL GUERRA DIAZ',
-                'PAULA DANAE MARROQUIN PEÑAFIEL',
-                'ALEJANDRO JOSUE MENDEZ JARAMILLO',
-                'AIRIS ELIANA RAMOS CHAVEZ',
-                'LUCIANA ANTONELLA RIVERA MURILLO',
-                'LEAH SARAHI TOAPANTA INLAGO'
+                'EMILIANO SEBASTIÁN AREBALO PAEZ','CARLOS EFRAIN AVILES TAPUY','GAEL PATRICIO CABASCANGO CUASCOTA','DANAHE NICKOL FERNANDEZ COBACANGO','ROSALIA ISABEL GUERRA DIAZ','PAULA DANAE MARROQUIN PEÑAFIEL','ALEJANDRO JOSUE MENDEZ JARAMILLO','AIRIS ELIANA RAMOS CHAVEZ','LUCIANA ANTONELLA RIVERA MURILLO','LEAH SARAHI TOAPANTA INLAGO'
             ],
             'Quinto Grado EGB': [
-                'AMIRA VICTORIA CARRERA TORRES',
-                'MAYER GILMAR AVILES TAPUY',
-                'ENRIQUE DAVID CASTRO SIMBAÑA',
-                'Isaac Sebastian Egas Teran',
-                'ELIAN MATIAS  PINANGO IMBA',
-                'PAULA MONSERRATH FLORES TULCANAZA',
-                'Manuela Fernanda Guerrero Mejia',
-                'GABRIEL ALFONSO LANDETA NARANJO',
-                'MATEO DAVID PAILLACHO MOLINA',
-                'NATASHA RAFAELA PUGA SANCHEZ',
-                'JHOAN CRISTOPHER QUIMBIAMBA CHICAIZA',
-                'ANGEL DAVID QUISHPE CAMPUES',
-                'Luis Sebastian Salazar Ayala',
-                'AISHA THALIA SEVILLANO CABEZAS',
-                'Fiorella Sofía Velastegui Villarreal'
+                'AMIRA VICTORIA CARRERA TORRES','MAYER GILMAR AVILES TAPUY','ENRIQUE DAVID CASTRO SIMBAÑA','Isaac Sebastian Egas Teran','ELIAN MATIAS  PINANGO IMBA','PAULA MONSERRATH FLORES TULCANAZA','Manuela Fernanda Guerrero Mejia','GABRIEL ALFONSO LANDETA NARANJO','MATEO DAVID PAILLACHO MOLINA','NATASHA RAFAELA PUGA SANCHEZ','JHOAN CRISTOPHER QUIMBIAMBA CHICAIZA','ANGEL DAVID QUISHPE CAMPUES','Luis Sebastian Salazar Ayala','AISHA THALIA SEVILLANO CABEZAS','Fiorella Sofía Velastegui Villarreal'
             ],
             'Sexto Grado EGB': [
-                'Elissa Kaye Abston silva',
-                'Jacob Isaac Campués Cabascango',
-                'EHITAN ANDRÉS FARINANGO TOAPANTA',
-                'Gala Llata Carrion',
-                'AIDE SARAI MALDONADO GUAMAN',
-                'JOSE JOAQUIN MARTINEZ CARRILLO',
-                'Caleb Enoc Pazmiño Cabascango',
-                'JOSE ADRIAN QUIMBIAMBA CACHIPUENDO',
-                'EDUAR ABEL QUISHPE LOPEZ',
-                'JORDAN GABRIEL REINA CORTEZ',
-                'LIA VICTORIA SANDOVAL TORRES',
-                'SARA LUCIA SIMBA BELLO',
-                'Scarlett Sarahi SIMBA BELLO',
-                'Ayelen Kataleya UshiNa Morocho',
-                'Valentina Sofia Zambrano Jaramillo'
+                'Elissa Kaye Abston silva','Jacob Isaac Campués Cabascango','EHITAN ANDRÉS FARINANGO TOAPANTA','Gala Llata Carrion','AIDE SARAI MALDONADO GUAMAN','JOSE JOAQUIN MARTINEZ CARRILLO','Caleb Enoc Pazmiño Cabascango','JOSE ADRIAN QUIMBIAMBA CACHIPUENDO','EDUAR ABEL QUISHPE LOPEZ','JORDAN GABRIEL REINA CORTEZ','LIA VICTORIA SANDOVAL TORRES','SARA LUCIA SIMBA BELLO','Scarlett Sarahi SIMBA BELLO','Ayelen Kataleya UshiNa Morocho','Valentina Sofia Zambrano Jaramillo'
             ],
             'Séptimo Grado EGB': [
-                'ABEL MATEO ALVARADO GREFA',
-                'ANGEL LUIS ALVARADO GREFA',
-                'VALERIA YAMILETH BUITRON CHONTASI',
-                'ISIS ALEJANDRA CHARCOPA MANANGON',
-                'KARLA MABEL CUASCOTA NUÑEZ',
-                'DIANA MARISOL GUALAVISI SANCHIMA',
-                'BEATRIZ MARGRETH HERNANDEZ GUERRA',
-                'Jostin Sebastian PeNa Guachamin',
-                'ELSA MAYURI AVILES TAPUY',
-                'Isell Alejandra Tene Baño',
-                'EMILY SARAHI ULCUANGO GUACAN',
-                'ISABELLA AMELI VILLARREAL PILCO',
-                'GUIDO MAYCOL WIAKACH SHARIAN'
+                'ABEL MATEO ALVARADO GREFA','ANGEL LUIS ALVARADO GREFA','VALERIA YAMILETH BUITRON CHONTASI','ISIS ALEJANDRA CHARCOPA MANANGON','KARLA MABEL CUASCOTA NUÑEZ','DIANA MARISOL GUALAVISI SANCHIMA','BEATRIZ MARGRETH HERNANDEZ GUERRA','Jostin Sebastian PeNa Guachamin','ELSA MAYURI AVILES TAPUY','Isell Alejandra Tene Baño','EMILY SARAHI ULCUANGO GUACAN','ISABELLA AMELI VILLARREAL PILCO','GUIDO MAYCOL WIAKACH SHARIAN'
             ],
             'Octavo Grado EGB': [
-                'JHULIANA AZUCENA CATUCUAGO FERNANDEZ',
-                'JOAN ADAN GORDON ANDRANGO',
-                'ALEJANDRO SEBASTIAN GUEVARA CISNEROS',
-                'JoaquIn Esteban Lovato Cruz',
-                'RENATA MALDONADO ORTEGA',
-                'SARA ISABELLA MENESES OROZCO',
-                'ALINE VALENTINA PAMBI AUCAPIÑA',
-                'DIANA ELIZABETH QUIMBIAMBA GUASGUA',
-                'MARIA JOSE QUISHPE CAMPUES',
-                'STEFANO LENIN SANCHEZ PEÑARRIETA',
-                'Ignacio Samuel Terán Fernández',
-                'Gael Antonio Valencia Baño',
-                'RENATO VITERI BENITEZ'
+                'JHULIANA AZUCENA CATUCUAGO FERNANDEZ','JOAN ADAN GORDON ANDRANGO','ALEJANDRO SEBASTIAN GUEVARA CISNEROS','JoaquIn Esteban Lovato Cruz','RENATA MALDONADO ORTEGA','SARA ISABELLA MENESES OROZCO','ALINE VALENTINA PAMBI AUCAPIÑA','DIANA ELIZABETH QUIMBIAMBA GUASGUA','MARIA JOSE QUISHPE CAMPUES','STEFANO LENIN SANCHEZ PEÑARRIETA','Ignacio Samuel Terán Fernández','Gael Antonio Valencia Baño','RENATO VITERI BENITEZ'
             ],
             'Noveno Grado EGB': [
-                'MATIAS KEILETH AGUAS CRIOLLO',
-                'Alice Yuliana Arias Loor',
-                'Raymond Armando Collaguazo Lara',
-                'ANAHI CUASCOTA NUÑEZ',
-                'PABLO EZEQUIEL ESPINOZA TINILLO',
-                'JAKE SANDER GOVEA MINA',
-                'CRISTINA JAMILETH JACOME MINAGUA',
-                'EVA JAKELINE JIMENEZ USHIÑA',
-                'DIANA SOFIA LITA BASTIDAS',
-                'SARA MARISOL PAZMIÑO NARANJO',
-                'VIANNCA PAULETH RIVERA MURILLO',
-                'STEFANO DIDIER RIVERA ZURITA',
-                'JEREMY CÉSAR RODRÍGUEZ CALERO',
-                'MAXIMILIANO JOEL SANCHEZ CUZCO',
-                'WIDY SILVERIO SANCHIMA TANGAMASI',
-                'ALLISSON SOFIA SICHIQUE MACAS',
-                'DIEGO MAXIMILIANO TORRES GARCIA',
-                'SAMUEL NICOLAS VALLADARES ALVEAR',
-                'Isabella Villamil Villamil Rodriguez',
-                'DANIELA ELIZABETH WIAKACH SHARIAN'
+                'MATIAS KEILETH AGUAS CRIOLLO','Alice Yuliana Arias Loor','Raymond Armando Collaguazo Lara','ANAHI CUASCOTA NUÑEZ','PABLO EZEQUIEL ESPINOZA TINILLO','JAKE SANDER GOVEA MINA','CRISTINA JAMILETH JACOME MINAGUA','EVA JAKELINE JIMENEZ USHIÑA','DIANA SOFIA LITA BASTIDAS','SARA MARISOL PAZMIÑO NARANJO','VIANNCA PAULETH RIVERA MURILLO','STEFANO DIDIER RIVERA ZURITA','JEREMY CÉSAR RODRÍGUEZ CALERO','MAXIMILIANO JOEL SANCHEZ CUZCO','WIDY SILVERIO SANCHIMA TANGAMASI','ALLISSON SOFIA SICHIQUE MACAS','DIEGO MAXIMILIANO TORRES GARCIA','SAMUEL NICOLAS VALLADARES ALVEAR','Isabella Villamil Villamil Rodriguez','DANIELA ELIZABETH WIAKACH SHARIAN'
             ],
             'Décimo Grado EGB': [
-                'EMILY NICOLLE ANGUASHA TORRES',
-                'ALEJANDRO NICOLAS CABASCANGO FERNANDEZ',
-                'MARIO JOAQUIN CASTRO VILLALBA',
-                'JUAN DAVID CACOANGO LECHON',
-                'LUNA ANTONELLA CHAVEZ PASPUEZAN',
-                'ANDY MATEO CUASCOTA NUÑEZ',
-                'FRANCISCO JOAQUIN ESCOBAR RIVERA',
-                'CAMILO SEBASTIAN LITA BASTIDAS',
-                'Joaquin Gabriel Paz Cárdenas',
-                'Christopher Israel Pulla Altafulla',
-                'Antonella SAenz Olmedo',
-                'ESTEBAN NICOLAS SALCEDO ARMAS',
-                'NAOMI BELEN SANIPATIN ARIAS',
-                'PAULINA SOLIS MORALES',
-                'DORIS DAYRA WIAKACH SHARIAN'
+                'EMILY NICOLLE ANGUASHA TORRES','ALEJANDRO NICOLAS CABASCANGO FERNANDEZ','MARIO JOAQUIN CASTRO VILLALBA','JUAN DAVID CACOANGO LECHON','LUNA ANTONELLA CHAVEZ PASPUEZAN','ANDY MATEO CUASCOTA NUÑEZ','FRANCISCO JOAQUIN ESCOBAR RIVERA','CAMILO SEBASTIAN LITA BASTIDAS','Joaquin Gabriel Paz Cárdenas','Christopher Israel Pulla Altafulla','Antonella SAenz Olmedo','ESTEBAN NICOLAS SALCEDO ARMAS','NAOMI BELEN SANIPATIN ARIAS','PAULINA SOLIS MORALES','DORIS DAYRA WIAKACH SHARIAN'
             ],
             'Primer Curso A - Bachillerato': [
-                'NIKOLAS AREBALO CABEZAS',
-                'JOAQUIN ANDRÉS AREBALO NOVOA',
-                'Domenica Camila Arévalo Imba',
-                'JOSELYN AMERICA CABASCANGO ORTEGA',
-                'ISMAEL LEONARDO CACUANGO CABASCANGO',
-                'EYDAN ALESSANDRO CALERO ROMO',
-                'Marcos Eduardo DAvila Fuel',
-                'BENJAMIN JOSUE ESCOBAR RIVERA',
-                'ADRIANA ABIGAIL ESPINOZA TINILLO',
-                'MIKAELA ESTEFANIA JACOME MINAGUA',
-                'SADY MICAELA MOLINA ESPINOSA',
-                'ERICK JOSUE MORAN GONZALEZ',
-                'VANESSA ALEJANDRA MUZO VALLADARES',
-                'MILEY YAMILE PULAMARIN MONTENEGRO',
-                'ADDISON ELIESE REEGER REEGER',
-                'CAMILA ALEJANDRA SALAZAR AYALA',
-                'JULIAN JOSUE ULCUANGO GUACAN'
+                'NIKOLAS AREBALO CABEZAS','JOAQUIN ANDRÉS AREBALO NOVOA','Domenica Camila Arévalo Imba','JOSELYN AMERICA CABASCANGO ORTEGA','ISMAEL LEONARDO CACUANGO CABASCANGO','EYDAN ALESSANDRO CALERO ROMO','Marcos Eduardo DAvila Fuel','BENJAMIN JOSUE ESCOBAR RIVERA','ADRIANA ABIGAIL ESPINOZA TINILLO','MIKAELA ESTEFANIA JACOME MINAGUA','SADY MICAELA MOLINA ESPINOSA','ERICK JOSUE MORAN GONZALEZ','VANESSA ALEJANDRA MUZO VALLADARES','MILEY YAMILE PULAMARIN MONTENEGRO','ADDISON ELIESE REEGER REEGER','CAMILA ALEJANDRA SALAZAR AYALA','JULIAN JOSUE ULCUANGO GUACAN'
             ],
             'Segundo Curso A - Bachillerato': [
-                'ESTHER JULIETA DIAZ ALCIVAR',
-                'CAMILA EDUARDA GUERRERO AVILES',
-                'JULIANA ABIGAIL MARROQUIN SIMBAÑA',
-                'Karen Jalitza Molina Mamallacta',
-                'ABIGAIL MUNOZ GUAMA',
-                'Karoline Samantha Navarrete Pazmiño',
-                'ENMA ROSALIA PAPA DAGUAY',
-                'Samael Valladares Jarrín',
-                'BI SHENG YAO HUANG',
-                'ESTEBAN YECAO'
+                'ESTHER JULIETA DIAZ ALCIVAR','CAMILA EDUARDA GUERRERO AVILES','JULIANA ABIGAIL MARROQUIN SIMBAÑA','Karen Jalitza Molina Mamallacta','ABIGAIL MUNOZ GUAMA','Karoline Samantha Navarrete Pazmiño','ENMA ROSALIA PAPA DAGUAY','Samael Valladares Jarrín','BI SHENG YAO HUANG','ESTEBAN YECAO'
             ],
             'Tercer Curso A - Bachillerato': [
-                'CLINTON ABSTON SILVA',
-                'Karol Fernanda Cuascota Castillo',
-                'KORY ANTONELA CUASCOTA NUÑEZ',
-                'Dheibid Jhoao Demera Galarraga',
-                'YULIANA ANAHI HERNANDEZ AGUILAR',
-                'Dayana Camila Maldonado Robayo',
-                'RAJINDER ALEJANDRO MANANGON FREIRE',
-                'ALEXANDER RAMOS CHAVEZ',
-                'BLANCA AZUCENA SANCHIMA TANGAMASHI',
-                'Sofia Tene Baño',
-                'Pablo Andre Torres Albuja',
-                'MATEO JAVIER ZAMBRANO VACA'
+                'CLINTON ABSTON SILVA','Karol Fernanda Cuascota Castillo','KORY ANTONELA CUASCOTA NUÑEZ','Dheibid Jhoao Demera Galarraga','YULIANA ANAHI HERNANDEZ AGUILAR','Dayana Camila Maldonado Robayo','RAJINDER ALEJANDRO MANANGON FREIRE','ALEXANDER RAMOS CHAVEZ','BLANCA AZUCENA SANCHIMA TANGAMASHI','Sofia Tene Baño','Pablo Andre Torres Albuja','MATEO JAVIER ZAMBRANO VACA'
             ]
         };
 
-        // ============================================================
-        // CATEGORÍAS DE FALTAS
-        // ============================================================
         const FALTAS = {
-            muyLeves: [
-                'Llegar Tarde (<5 min)', 'Provocación Verbal', 'Uniforme Inadecuado',
-                'Interrumpir en clases', 'Conducta disruptiva inicial',
-                'No traer materiales', 'Usar objeto distractor'
-            ],
-            leves: [
-                'Uso de groserías/vulgares', 'Salir sin autorización',
-                'Mal uso de propiedad', 'Llegar Tarde (>5 min)',
-                'Muestras de afecto excesivas', 'Reincidencia en muy leves'
-            ],
-            graves: [
-                'Bullying / Ataque verbal', 'Fotos/grabar sin permiso',
-                'Difamación a compañeros', 'Agresión física leve',
-                'Mentir sistemáticamente', 'Hurto menor (<$25)',
-                'Desafiar a la autoridad'
-            ],
-            muyGraves: [
-                'Consumo alcohol o tabaco', 'Sustracción de bienes (>$25)',
-                'Salir de HCA sin permiso', 'Sustancias ilegales / drogas',
-                'Portar o usar armas', 'Falsificación firmas/sellos',
-                'Difamación en redes'
-            ]
+            muyLeves: ['Llegar Tarde (<5 min)','Provocación Verbal','Uniforme Inadecuado','Interrumpir en clases','Conducta disruptiva inicial','No traer materiales','Usar objeto distractor'],
+            leves: ['Uso de groserías/vulgares','Salir sin autorización','Mal uso de propiedad','Llegar Tarde (>5 min)','Muestras de afecto excesivas','Reincidencia en muy leves'],
+            graves: ['Bullying / Ataque verbal','Fotos/grabar sin permiso','Difamación a compañeros','Agresión física leve','Mentir sistemáticamente','Hurto menor (<$25)','Desafiar a la autoridad'],
+            muyGraves: ['Consumo alcohol o tabaco','Sustracción de bienes (>$25)','Salir de HCA sin permiso','Sustancias ilegales / drogas','Portar o usar armas','Falsificación firmas/sellos','Difamación en redes']
         };
 
-        const INDICADORES_DISRUPTIVOS = [
-            'Negativa radical a instrucciones', 'Dejar el aula sin autorización',
-            'Ruidos o gritos excesivos', 'Lanzamiento intencionado de objetos',
-            'Desafío vocal persistente o muecas', 'Interrupción activa de la clase'
-        ];
+        const INDICADORES_DISRUPTIVOS = ['Negativa radical a instrucciones','Dejar el aula sin autorización','Ruidos o gritos excesivos','Lanzamiento intencionado de objetos','Desafío vocal persistente o muecas','Interrupción activa de la clase'];
+        const RAZONES_PRESUNTAS = ['Obtener atención de compañeros','Obtener atención del docente','Demostración de control/poder','Evitar la realización de la tarea','Evitar interacción con adultos','Sentimiento de aburrimiento'];
 
-        const RAZONES_PRESUNTAS = [
-            'Obtener atención de compañeros', 'Obtener atención del docente',
-            'Demostración de control/poder', 'Evitar la realización de la tarea',
-            'Evitar interacción con adultos', 'Sentimiento de aburrimiento'
-        ];
-
-        // ============================================================
-        // UTILIDADES
-        // ============================================================
         function showNotification(msg, type = 'success') {
             const notif = document.getElementById('notification');
             const span = document.getElementById('notif-msg');
@@ -751,9 +567,7 @@
             const dd = String(today.getDate()).padStart(2, '0');
             document.getElementById('fecha').value = `${yyyy}-${mm}-${dd}`;
             document.getElementById('hora').value = `${String(today.getHours()).padStart(2,'0')}:${String(today.getMinutes()).padStart(2,'0')}`;
-            document.getElementById('current-date-display').textContent = today.toLocaleDateString('es-ES', {
-                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
-            });
+            document.getElementById('current-date-display').textContent = today.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
         }
 
         function updateConnectionStatus(online, text) {
@@ -768,9 +582,6 @@
             }
         }
 
-        // ============================================================
-        // POBLAR ESTUDIANTES
-        // ============================================================
         function populateEstudiantes(curso) {
             const sel = document.getElementById('estudiante');
             sel.innerHTML = '<option value="">-- Selecciona estudiante --</option>';
@@ -791,9 +602,6 @@
             });
         }
 
-        // ============================================================
-        // CHECKBOXES
-        // ============================================================
         function createCheckboxes(containerId, items, prefix) {
             const container = document.getElementById(containerId);
             container.innerHTML = '';
@@ -824,9 +632,6 @@
             return Array.from(document.querySelectorAll(`input[name="${prefix}"]:checked`)).map(cb => cb.value);
         }
 
-        // ============================================================
-        // FORMULARIO
-        // ============================================================
         function collectFormData() {
             const form = document.getElementById('report-form');
             return {
@@ -854,23 +659,16 @@
             if (!data.fecha) return 'Debes seleccionar una fecha.';
             if (!data.hora) return 'Debes seleccionar una hora.';
             if (!data.lugar) return 'Debes seleccionar un lugar.';
-            const totalFaltas = data.faltasMuyLeves.length + data.faltasLeves.length +
-                                data.faltasGraves.length + data.faltasMuyGraves.length;
+            const totalFaltas = data.faltasMuyLeves.length + data.faltasLeves.length + data.faltasGraves.length + data.faltasMuyGraves.length;
             if (totalFaltas === 0) return 'Debes marcar al menos una falta.';
             if (!data.descripcion.trim()) return 'Debes escribir una descripción del suceso.';
             return null;
         }
 
-        // ============================================================
-        // GUARDAR EN FIREBASE
-        // ============================================================
         async function saveReport() {
             const data = collectFormData();
             const error = validateForm(data);
-            if (error) {
-                showNotification('⚠️ ' + error, 'error');
-                return;
-            }
+            if (error) { showNotification('⚠️ ' + error, 'error'); return; }
 
             const btn = document.getElementById('save-btn');
             btn.disabled = true;
@@ -883,13 +681,11 @@
                     timestamp: new Date().toISOString(),
                     createdAt: serverTimestamp()
                 });
-
                 showNotification('✅ Reporte guardado correctamente.');
                 document.getElementById('report-form').reset();
                 document.querySelectorAll('.falta-item').forEach(l => l.classList.remove('checked'));
                 setInitialDate();
                 populateEstudiantes('');
-                // No hace falta recargar: onSnapshot actualiza automáticamente
             } catch (err) {
                 console.error(err);
                 showNotification('❌ Error al guardar: ' + err.message, 'error');
@@ -899,51 +695,31 @@
             }
         }
 
-        // ============================================================
-        // CARGAR REPORTES EN TIEMPO REAL (onSnapshot)
-        // ============================================================
         function listenReports() {
             const list = document.getElementById('reports-list');
             const { db, collection, onSnapshot, query, orderBy, COLECCION } = window.fb;
-
             const q = query(collection(db, COLECCION), orderBy('createdAt', 'desc'));
-
             onSnapshot(q,
                 (snapshot) => {
                     updateConnectionStatus(true, 'Conectado en tiempo real');
                     const saved = [];
-                    snapshot.forEach(docSnap => {
-                        saved.push({ id: docSnap.id, ...docSnap.data() });
-                    });
+                    snapshot.forEach(docSnap => saved.push({ id: docSnap.id, ...docSnap.data() }));
                     renderReports(saved);
                 },
                 (error) => {
                     console.error('Error en onSnapshot:', error);
                     updateConnectionStatus(false, 'Error de conexión');
-                    list.innerHTML = `
-                        <div class="text-center py-12 bg-red-50 rounded-3xl border border-red-200">
-                            <i class="fas fa-exclamation-triangle text-5xl block mb-3 text-red-400"></i>
-                            <p class="text-red-600">Error al conectar con Firebase. Revisa tu conexión.</p>
-                        </div>
-                    `;
+                    list.innerHTML = `<div class="text-center py-12 bg-red-50 rounded-3xl border border-red-200"><i class="fas fa-exclamation-triangle text-5xl block mb-3 text-red-400"></i><p class="text-red-600">Error al conectar con Firebase. Revisa tu conexión.</p></div>`;
                 }
             );
         }
 
-        // ============================================================
-        // RENDERIZAR REPORTES
-        // ============================================================
         function renderReports(saved) {
             const list = document.getElementById('reports-list');
             document.getElementById('count-badge').textContent = saved.length;
 
             if (saved.length === 0) {
-                list.innerHTML = `
-                    <div class="text-center py-12 bg-white/50 rounded-3xl backdrop-blur-sm border border-white/30">
-                        <i class="fas fa-inbox text-5xl block mb-3 text-slate-300"></i>
-                        <p class="text-slate-500">No hay reportes guardados.</p>
-                    </div>
-                `;
+                list.innerHTML = `<div class="text-center py-12 bg-white/50 rounded-3xl backdrop-blur-sm border border-white/30"><i class="fas fa-inbox text-5xl block mb-3 text-slate-300"></i><p class="text-slate-500">No hay reportes guardados.</p></div>`;
                 return;
             }
 
@@ -952,8 +728,7 @@
                 const card = document.createElement('div');
                 card.className = 'observation-card p-5 transition-all';
 
-                const totalFaltas = (rep.faltasMuyLeves?.length || 0) + (rep.faltasLeves?.length || 0) +
-                                    (rep.faltasGraves?.length || 0) + (rep.faltasMuyGraves?.length || 0);
+                const totalFaltas = (rep.faltasMuyLeves?.length || 0) + (rep.faltasLeves?.length || 0) + (rep.faltasGraves?.length || 0) + (rep.faltasMuyGraves?.length || 0);
                 const tieneGraves = (rep.faltasGraves?.length || 0) > 0 || (rep.faltasMuyGraves?.length || 0) > 0;
                 if (tieneGraves) card.style.borderLeftColor = '#dc2626';
                 else if ((rep.faltasLeves?.length || 0) > 0) card.style.borderLeftColor = '#f59e0b';
@@ -966,7 +741,7 @@
                         <div class="flex-1 min-w-0">
                             <div class="flex items-center gap-2 flex-wrap">
                                 <span class="font-bold text-lg text-slate-800">${rep.estudiante || 'N/A'}</span>
-                                <span class="text-sm bg-red-100 text-red-700 px-3 py-0.5 rounded-full">${rep.curso || 'N/A'}</span>
+                                <span class="text-sm bg-blue-100 text-blue-700 px-3 py-0.5 rounded-full">${rep.curso || 'N/A'}</span>
                                 <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">${totalFaltas} falta(s)</span>
                             </div>
                             <div class="text-sm text-slate-500 mt-1 flex items-center gap-2 flex-wrap">
@@ -997,9 +772,6 @@
             });
         }
 
-        // ============================================================
-        // ELIMINAR REPORTE DE FIREBASE
-        // ============================================================
         async function deleteReport(id) {
             if (!confirm('¿Estás seguro de eliminar este reporte? Esta acción no se puede deshacer.')) return;
             try {
@@ -1012,12 +784,7 @@
             }
         }
 
-        // ============================================================
-        // EVENTOS
-        // ============================================================
-        document.getElementById('curso').addEventListener('change', (e) => {
-            populateEstudiantes(e.target.value);
-        });
+        document.getElementById('curso').addEventListener('change', (e) => populateEstudiantes(e.target.value));
 
         document.getElementById('report-form').addEventListener('submit', (e) => {
             e.preventDefault();
@@ -1033,31 +800,20 @@
                 const card = detBtn.closest('.observation-card');
                 const content = card.querySelector('.details-content');
                 content.classList.toggle('hidden');
-                detBtn.innerHTML = content.classList.contains('hidden') ?
-                    '<i class="fas fa-chevron-down mr-1"></i> Ver detalles' :
-                    '<i class="fas fa-chevron-up mr-1"></i> Ocultar detalles';
+                detBtn.innerHTML = content.classList.contains('hidden') ? '<i class="fas fa-chevron-down mr-1"></i> Ver detalles' : '<i class="fas fa-chevron-up mr-1"></i> Ocultar detalles';
             }
         });
 
-        // ============================================================
-        // DESCARGAR EXCEL (lee desde Firebase en tiempo real)
-        // ============================================================
         document.getElementById('download-excel-btn').addEventListener('click', async () => {
             try {
-                const { db, collection, onSnapshot, query, orderBy, COLECCION } = window.fb;
-                // Usamos una lectura única vía getDocs sería ideal, pero aquí
-                // reutilizamos los datos ya cargados en memoria (rápido y simple)
+                const { db, collection, query, orderBy, COLECCION } = window.fb;
                 const saved = [];
-                // Obtenemos de una sola lectura
                 const q = query(collection(db, COLECCION), orderBy('createdAt', 'desc'));
                 const { getDocs } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
                 const snapshot = await getDocs(q);
                 snapshot.forEach(d => saved.push({ id: d.id, ...d.data() }));
 
-                if (saved.length === 0) {
-                    showNotification('No hay reportes para exportar.', 'error');
-                    return;
-                }
+                if (saved.length === 0) { showNotification('No hay reportes para exportar.', 'error'); return; }
 
                 const data = saved.map(rep => ({
                     'ID': rep.id,
@@ -1089,19 +845,14 @@
             }
         });
 
-        // ============================================================
-        // INICIALIZACIÓN
-        // ============================================================
         function init() {
             setInitialDate();
             buildAllCheckboxes();
             updateConnectionStatus(false, 'Conectando...');
-            // Escuchar reportes en tiempo real
             listenReports();
             showNotification('✅ Conectado al sistema DECE.');
         }
 
-        // Esperar a que Firebase esté listo (viene del script module)
         window.addEventListener('firebase-ready', () => {
             console.log('Firebase listo');
             init();
