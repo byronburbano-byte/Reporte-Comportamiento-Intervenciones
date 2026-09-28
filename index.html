@@ -477,7 +477,7 @@
     <!-- ============================================================ -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot, query, orderBy, serverTimestamp, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAzkH3VAKpBfD7qBVQX0HXawL7WPkouJMM",
@@ -492,9 +492,13 @@
         const db = getFirestore(app);
         const COLECCION = 'reportesDece';
 
-        window.fb = { db, collection, addDoc, deleteDoc, doc, onSnapshot, query, orderBy, serverTimestamp, COLECCION };
-
-        window.dispatchEvent(new Event('firebase-ready'));
+        // Exponer TODO lo necesario, incluido getDocs
+        window.fb = {
+            app, db, collection, addDoc, deleteDoc, doc,
+            onSnapshot, query, orderBy, serverTimestamp, getDocs, COLECCION
+        };
+        window.fbReady = true;
+        console.log('✅ Firebase inicializado. window.fbReady = true');
     </script>
 
     <!-- ============================================================ -->
@@ -572,12 +576,9 @@
 
         function updateConnectionStatus(online, text) {
             const el = document.getElementById('connection-status');
-            const dot = el.querySelector('.status-dot');
             if (online) {
-                dot.classList.add('online');
                 el.innerHTML = '<span class="status-dot online"></span> ' + text;
             } else {
-                dot.classList.remove('online');
                 el.innerHTML = '<span class="status-dot"></span> ' + text;
             }
         }
@@ -604,6 +605,7 @@
 
         function createCheckboxes(containerId, items, prefix) {
             const container = document.getElementById(containerId);
+            if (!container) return;
             container.innerHTML = '';
             items.forEach((item, i) => {
                 const label = document.createElement('label');
@@ -670,25 +672,32 @@
             const error = validateForm(data);
             if (error) { showNotification('⚠️ ' + error, 'error'); return; }
 
+            if (!window.fb || !window.fbReady) {
+                showNotification('❌ Firebase aún no está listo. Espera un momento.', 'error');
+                return;
+            }
+
             const btn = document.getElementById('save-btn');
             btn.disabled = true;
             btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Guardando...';
 
             try {
                 const { db, collection, addDoc, serverTimestamp, COLECCION } = window.fb;
-                await addDoc(collection(db, COLECCION), {
+                console.log('📤 Guardando reporte...', data);
+                const docRef = await addDoc(collection(db, COLECCION), {
                     ...data,
                     timestamp: new Date().toISOString(),
                     createdAt: serverTimestamp()
                 });
+                console.log('✅ Guardado con ID:', docRef.id);
                 showNotification('✅ Reporte guardado correctamente.');
                 document.getElementById('report-form').reset();
                 document.querySelectorAll('.falta-item').forEach(l => l.classList.remove('checked'));
                 setInitialDate();
                 populateEstudiantes('');
             } catch (err) {
-                console.error(err);
-                showNotification('❌ Error al guardar: ' + err.message, 'error');
+                console.error('❌ Error al guardar:', err);
+                showNotification('❌ Error al guardar: ' + (err.message || err.code || 'desconocido'), 'error');
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = '<i class="fas fa-save mr-2"></i> Guardar Reporte';
@@ -698,18 +707,42 @@
         function listenReports() {
             const list = document.getElementById('reports-list');
             const { db, collection, onSnapshot, query, orderBy, COLECCION } = window.fb;
-            const q = query(collection(db, COLECCION), orderBy('createdAt', 'desc'));
+
+            // Intentar primero con orderBy timestamp (el que siempre ponemos)
+            const q = query(collection(db, COLECCION), orderBy('timestamp', 'desc'));
+
             onSnapshot(q,
                 (snapshot) => {
                     updateConnectionStatus(true, 'Conectado en tiempo real');
                     const saved = [];
                     snapshot.forEach(docSnap => saved.push({ id: docSnap.id, ...docSnap.data() }));
+                    console.log('📥 Reportes recibidos:', saved.length);
                     renderReports(saved);
                 },
                 (error) => {
-                    console.error('Error en onSnapshot:', error);
-                    updateConnectionStatus(false, 'Error de conexión');
-                    list.innerHTML = `<div class="text-center py-12 bg-red-50 rounded-3xl border border-red-200"><i class="fas fa-exclamation-triangle text-5xl block mb-3 text-red-400"></i><p class="text-red-600">Error al conectar con Firebase. Revisa tu conexión.</p></div>`;
+                    console.error('❌ Error en onSnapshot (orderBy timestamp):', error);
+                    // Fallback: intentar sin orderBy
+                    console.warn('🔄 Reintentando sin orderBy...');
+                    const q2 = query(collection(db, COLECCION));
+                    onSnapshot(q2,
+                        (snap2) => {
+                            updateConnectionStatus(true, 'Conectado (sin orden)');
+                            const saved = [];
+                            snap2.forEach(d => saved.push({ id: d.id, ...d.data() }));
+                            saved.sort((a, b) => (b.timestamp || '').localeCompare(a.timestamp || ''));
+                            renderReports(saved);
+                        },
+                        (err2) => {
+                            console.error('❌ Error en onSnapshot (sin orderBy):', err2);
+                            updateConnectionStatus(false, 'Error de conexión');
+                            list.innerHTML = `<div class="text-center py-12 bg-red-50 rounded-3xl border border-red-200">
+                                <i class="fas fa-exclamation-triangle text-5xl block mb-3 text-red-400"></i>
+                                <p class="text-red-600 font-semibold mb-2">Error al conectar con Firebase</p>
+                                <p class="text-red-500 text-sm">${err2.message || err2.code || 'Error desconocido'}</p>
+                                <p class="text-slate-500 text-xs mt-3">Revisa las reglas de Firestore y la consola (F12).</p>
+                            </div>`;
+                        }
+                    );
                 }
             );
         }
@@ -806,10 +839,9 @@
 
         document.getElementById('download-excel-btn').addEventListener('click', async () => {
             try {
-                const { db, collection, query, orderBy, COLECCION } = window.fb;
+                const { db, collection, query, orderBy, COLECCION, getDocs } = window.fb;
                 const saved = [];
-                const q = query(collection(db, COLECCION), orderBy('createdAt', 'desc'));
-                const { getDocs } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+                const q = query(collection(db, COLECCION), orderBy('timestamp', 'desc'));
                 const snapshot = await getDocs(q);
                 snapshot.forEach(d => saved.push({ id: d.id, ...d.data() }));
 
@@ -846,6 +878,7 @@
         });
 
         function init() {
+            console.log('🚀 Inicializando aplicación...');
             setInitialDate();
             buildAllCheckboxes();
             updateConnectionStatus(false, 'Conectando...');
@@ -853,10 +886,15 @@
             showNotification('✅ Conectado al sistema DECE.');
         }
 
-        window.addEventListener('firebase-ready', () => {
-            console.log('Firebase listo');
-            init();
-        });
+        // Esperar a que Firebase esté listo (bandera + polling)
+        (function waitForFirebase() {
+            if (window.fb && window.fbReady) {
+                console.log('✅ window.fb detectado. Iniciando...');
+                init();
+            } else {
+                setTimeout(waitForFirebase, 50);
+            }
+        })();
     </script>
 </body>
 </html>
