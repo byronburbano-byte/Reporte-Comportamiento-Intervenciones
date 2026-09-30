@@ -239,6 +239,30 @@
             align-items: center;
             gap: 4px;
         }
+        /* Estilos para la sección de detención */
+        .detencion-section {
+            border-top: 4px solid #a855f7;
+        }
+        .detencion-badge {
+            background: linear-gradient(135deg, #a855f7, #7c3aed);
+            color: white;
+            font-weight: 700;
+            padding: 0.15rem 0.8rem;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            letter-spacing: 0.5px;
+        }
+        .detencion-badge-card {
+            background: #f3e8ff;
+            color: #7c3aed;
+            font-weight: 600;
+            padding: 0.15rem 0.7rem;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
     </style>
 </head>
 <body>
@@ -376,6 +400,37 @@
                 </div>
             </div>
 
+            <!-- SECCIÓN NUEVA: DETENCIÓN -->
+            <div class="glass-card p-6 md:p-8 rounded-3xl detencion-section">
+                <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2 border-b border-slate-200/60 pb-3 mb-5">
+                    <i class="fas fa-gavel text-purple-600 text-2xl"></i> Información de Detención
+                    <span class="detencion-badge ml-2">NUEVO</span>
+                </h2>
+                <p class="text-sm text-slate-500 mb-4 italic">
+                    <i class="fas fa-info-circle text-purple-400 mr-1"></i>
+                    Registra aquí la fecha y el horario en que el estudiante cumplirá la detención.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1">
+                            <i class="fas fa-calendar-check text-purple-500 mr-1"></i> Fecha de Detención
+                        </label>
+                        <input type="date" id="detencionFecha" name="detencionFecha" class="input-modern w-full" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1">
+                            <i class="fas fa-hourglass-half text-purple-500 mr-1"></i> Horario de Detención
+                        </label>
+                        <select id="detencionHorario" name="detencionHorario" class="input-modern w-full">
+                            <option value="">-- Selecciona horario --</option>
+                            <option value="12:15 - 13:00">12:15 - 13:00 (Media: 5to, 6to, 7mo)</option>
+                            <option value="13:00 - 13:45">13:00 - 13:45 (Superior y BGU)</option>
+                            <option value="No aplica">No aplica (Elemental)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
             <!-- Faltas -->
             <div class="glass-card p-6 md:p-8 rounded-3xl">
                 <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2 border-b border-slate-200/60 pb-3 mb-5">
@@ -492,7 +547,6 @@
         const db = getFirestore(app);
         const COLECCION = 'reportesDece';
 
-        // Exponer TODO lo necesario, incluido getDocs
         window.fb = {
             app, db, collection, addDoc, deleteDoc, doc,
             onSnapshot, query, orderBy, serverTimestamp, getDocs, COLECCION
@@ -650,7 +704,10 @@
                 faltasMuyGraves: getChecked('faltasMuyGraves'),
                 indicadoresDisruptivos: getChecked('indicadores'),
                 descripcion: form.descripcion.value,
-                razonesPresuntas: getChecked('razones')
+                razonesPresuntas: getChecked('razones'),
+                // 👇 NUEVOS CAMPOS DE DETENCIÓN
+                detencionFecha: form.detencionFecha.value || '',
+                detencionHorario: form.detencionHorario.value || ''
             };
         }
 
@@ -693,6 +750,9 @@
                 showNotification('✅ Reporte guardado correctamente.');
                 document.getElementById('report-form').reset();
                 document.querySelectorAll('.falta-item').forEach(l => l.classList.remove('checked'));
+                // Limpiar explícitamente los campos de detención (por si reset no los limpia)
+                document.getElementById('detencionFecha').value = '';
+                document.getElementById('detencionHorario').value = '';
                 setInitialDate();
                 populateEstudiantes('');
             } catch (err) {
@@ -708,7 +768,6 @@
             const list = document.getElementById('reports-list');
             const { db, collection, onSnapshot, query, orderBy, COLECCION } = window.fb;
 
-            // Intentar primero con orderBy timestamp (el que siempre ponemos)
             const q = query(collection(db, COLECCION), orderBy('timestamp', 'desc'));
 
             onSnapshot(q,
@@ -721,7 +780,6 @@
                 },
                 (error) => {
                     console.error('❌ Error en onSnapshot (orderBy timestamp):', error);
-                    // Fallback: intentar sin orderBy
                     console.warn('🔄 Reintentando sin orderBy...');
                     const q2 = query(collection(db, COLECCION));
                     onSnapshot(q2,
@@ -769,6 +827,11 @@
 
                 const timestamp = rep.timestamp ? new Date(rep.timestamp).toLocaleString() : 'N/A';
 
+                // 👇 BADGE DE DETENCIÓN (solo si existe)
+                const detencionBadge = (rep.detencionFecha || rep.detencionHorario)
+                    ? `<span class="detencion-badge-card"><i class="fas fa-gavel"></i> Detención: ${rep.detencionFecha || '—'} ${rep.detencionHorario ? '· ' + rep.detencionHorario : ''}</span>`
+                    : '';
+
                 card.innerHTML = `
                     <div class="flex flex-wrap items-center justify-between gap-3">
                         <div class="flex-1 min-w-0">
@@ -776,6 +839,7 @@
                                 <span class="font-bold text-lg text-slate-800">${rep.estudiante || 'N/A'}</span>
                                 <span class="text-sm bg-blue-100 text-blue-700 px-3 py-0.5 rounded-full">${rep.curso || 'N/A'}</span>
                                 <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">${totalFaltas} falta(s)</span>
+                                ${detencionBadge}
                             </div>
                             <div class="text-sm text-slate-500 mt-1 flex items-center gap-2 flex-wrap">
                                 <span><i class="fas fa-user-tie mr-1"></i> ${rep.elaboradoPor || 'N/A'}</span>
@@ -790,6 +854,7 @@
                         </div>
                     </div>
                     <div class="details-content mt-4 border-t border-slate-100 pt-4 hidden">
+                        ${(rep.detencionFecha || rep.detencionHorario) ? `<div class="bg-purple-50 p-3 rounded-xl mb-3 border border-purple-100"><span class="font-bold text-purple-700 text-sm"><i class="fas fa-gavel mr-1"></i> Detención</span><p class="text-sm mt-1 text-purple-800"><strong>Fecha:</strong> ${rep.detencionFecha || '—'} &nbsp;|&nbsp; <strong>Horario:</strong> ${rep.detencionHorario || '—'}</p></div>` : ''}
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
                             ${rep.faltasMuyLeves?.length ? `<div class="bg-amber-50 p-3 rounded-xl"><span class="font-bold text-amber-700 text-sm">Muy Leves</span><ul class="text-sm mt-1 list-disc list-inside">${rep.faltasMuyLeves.map(f => `<li>${f}</li>`).join('')}</ul></div>` : ''}
                             ${rep.faltasLeves?.length ? `<div class="bg-orange-50 p-3 rounded-xl"><span class="font-bold text-orange-700 text-sm">Leves</span><ul class="text-sm mt-1 list-disc list-inside">${rep.faltasLeves.map(f => `<li>${f}</li>`).join('')}</ul></div>` : ''}
@@ -849,21 +914,23 @@
 
                 const data = saved.map(rep => ({
                     'ID': rep.id,
-                    'Estudiante': rep.estudiante,
-                    'Curso': rep.curso,
-                    'Elaborado por': rep.elaboradoPor,
-                    'Fecha': rep.fecha,
-                    'Hora': rep.hora,
-                    'Lugar': rep.lugar,
-                    'Lugar (Otro)': rep.lugarOtro,
+                    'Estudiante': rep.estudiante || '',
+                    'Curso': rep.curso || '',
+                    'Elaborado por': rep.elaboradoPor || '',
+                    'Fecha': rep.fecha || '',
+                    'Hora': rep.hora || '',
+                    'Lugar': rep.lugar || '',
+                    'Lugar (Otro)': rep.lugarOtro || '',
+                    '📅 Fecha Detención': rep.detencionFecha || 'No registrada',
+                    '⏰ Horario Detención': rep.detencionHorario || 'No registrada',
                     'Faltas Muy Leves': (rep.faltasMuyLeves || []).join(' | '),
                     'Faltas Leves': (rep.faltasLeves || []).join(' | '),
                     'Faltas Graves': (rep.faltasGraves || []).join(' | '),
                     'Faltas Muy Graves': (rep.faltasMuyGraves || []).join(' | '),
                     'Indicadores Disruptivos': (rep.indicadoresDisruptivos || []).join(' | '),
-                    'Descripción': rep.descripcion,
+                    'Descripción': rep.descripcion || '',
                     'Razones Presuntas': (rep.razonesPresuntas || []).join(' | '),
-                    'Timestamp': rep.timestamp
+                    'Timestamp': rep.timestamp || ''
                 }));
                 const ws = XLSX.utils.json_to_sheet(data);
                 const wb = XLSX.utils.book_new();
@@ -886,7 +953,6 @@
             showNotification('✅ Conectado al sistema DECE.');
         }
 
-        // Esperar a que Firebase esté listo (bandera + polling)
         (function waitForFirebase() {
             if (window.fb && window.fbReady) {
                 console.log('✅ window.fb detectado. Iniciando...');
