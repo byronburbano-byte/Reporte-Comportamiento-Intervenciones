@@ -178,6 +178,47 @@
             transition: color 0.2s;
         }
         .delete-btn:hover { color: #dc2626; }
+        .edit-btn {
+            background: rgba(16, 185, 129, 0.12);
+            color: #059669;
+            font-weight: 600;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            transition: all 0.2s;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        .edit-btn:hover {
+            background: #059669;
+            color: white;
+        }
+        .cancel-edit-btn {
+            background: #f1f5f9;
+            color: #475569;
+            font-weight: 700;
+            padding: 0.7rem 2rem;
+            border-radius: 60px;
+            border: 1px solid #cbd5e1;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .cancel-edit-btn:hover {
+            background: #e2e8f0;
+        }
+        .editing-banner {
+            background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+            border: 1px solid #a7f3d0;
+            color: #065f46;
+            border-radius: 1rem;
+            padding: 0.85rem 1rem;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .editing-banner.show { display: flex; }
         #notification {
             position: fixed;
             bottom: 30px;
@@ -298,6 +339,16 @@
         </header>
 
         <!-- FORMULARIO -->
+        <div id="editing-banner" class="editing-banner">
+            <div class="flex items-center gap-3">
+                <i class="fas fa-pen-to-square text-emerald-600 text-xl"></i>
+                <div>
+                    <div class="font-bold">Editando reporte</div>
+                    <div id="editing-report-name" class="text-sm text-emerald-700"></div>
+                </div>
+            </div>
+            <button type="button" id="cancel-edit-top" class="text-sm font-bold underline">Cancelar edición</button>
+        </div>
         <form id="report-form" class="space-y-8 fade-in">
 
             <!-- Información General -->
@@ -499,8 +550,11 @@
                 <i class="fas fa-quote-right text-blue-400 ml-2"></i>
             </div>
 
-            <!-- Botón Guardar -->
-            <div class="flex justify-end">
+            <!-- Botones Guardar / Actualizar -->
+            <div class="flex justify-end gap-3">
+                <button type="button" class="cancel-edit-btn hidden" id="cancel-edit-btn">
+                    <i class="fas fa-xmark mr-2"></i> Cancelar
+                </button>
                 <button type="submit" class="btn-primary" id="save-btn">
                     <i class="fas fa-save mr-2"></i> Guardar Reporte
                 </button>
@@ -532,7 +586,7 @@
     <!-- ============================================================ -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot, query, orderBy, serverTimestamp, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot, query, orderBy, serverTimestamp, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAzkH3VAKpBfD7qBVQX0HXawL7WPkouJMM",
@@ -548,7 +602,7 @@
         const COLECCION = 'reportesDece';
 
         window.fb = {
-            app, db, collection, addDoc, deleteDoc, doc,
+            app, db, collection, addDoc, updateDoc, deleteDoc, doc,
             onSnapshot, query, orderBy, serverTimestamp, getDocs, COLECCION
         };
         window.fbReady = true;
@@ -607,6 +661,10 @@
 
         const INDICADORES_DISRUPTIVOS = ['Negativa radical a instrucciones','Dejar el aula sin autorización','Ruidos o gritos excesivos','Lanzamiento intencionado de objetos','Desafío vocal persistente o muecas','Interrupción activa de la clase'];
         const RAZONES_PRESUNTAS = ['Obtener atención de compañeros','Obtener atención del docente','Demostración de control/poder','Evitar la realización de la tarea','Evitar interacción con adultos','Sentimiento de aburrimiento'];
+
+        // ID del documento de Firebase que se está editando.
+        // Si es null, el formulario crea un reporte nuevo con addDoc().
+        let editingReportId = null;
 
         function showNotification(msg, type = 'success') {
             const notif = document.getElementById('notification');
@@ -735,33 +793,129 @@
             }
 
             const btn = document.getElementById('save-btn');
+            const wasEditing = Boolean(editingReportId);
             btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Guardando...';
+            btn.innerHTML = wasEditing
+                ? '<i class="fas fa-spinner fa-spin mr-2"></i> Actualizando...'
+                : '<i class="fas fa-spinner fa-spin mr-2"></i> Guardando...';
 
             try {
-                const { db, collection, addDoc, serverTimestamp, COLECCION } = window.fb;
-                console.log('📤 Guardando reporte...', data);
-                const docRef = await addDoc(collection(db, COLECCION), {
-                    ...data,
-                    timestamp: new Date().toISOString(),
-                    createdAt: serverTimestamp()
-                });
-                console.log('✅ Guardado con ID:', docRef.id);
-                showNotification('✅ Reporte guardado correctamente.');
-                document.getElementById('report-form').reset();
-                document.querySelectorAll('.falta-item').forEach(l => l.classList.remove('checked'));
-                // Limpiar explícitamente los campos de detención (por si reset no los limpia)
-                document.getElementById('detencionFecha').value = '';
-                document.getElementById('detencionHorario').value = '';
-                setInitialDate();
-                populateEstudiantes('');
+                const { db, collection, addDoc, updateDoc, doc, serverTimestamp, COLECCION } = window.fb;
+
+                if (wasEditing) {
+                    // IMPORTANTE: updateDoc modifica el documento existente.
+                    // No elimina ni crea un nuevo reporte y conserva createdAt.
+                    await updateDoc(doc(db, COLECCION, editingReportId), {
+                        ...data,
+                        updatedAt: serverTimestamp(),
+                        updatedTimestamp: new Date().toISOString()
+                    });
+
+                    console.log('✏️ Reporte actualizado:', editingReportId);
+                    showNotification('✅ Reporte actualizado correctamente.');
+                } else {
+                    const docRef = await addDoc(collection(db, COLECCION), {
+                        ...data,
+                        timestamp: new Date().toISOString(),
+                        createdAt: serverTimestamp()
+                    });
+
+                    console.log('✅ Nuevo reporte guardado con ID:', docRef.id);
+                    showNotification('✅ Reporte guardado correctamente.');
+                }
+
+                resetFormAndEditMode();
             } catch (err) {
-                console.error('❌ Error al guardar:', err);
-                showNotification('❌ Error al guardar: ' + (err.message || err.code || 'desconocido'), 'error');
+                console.error('❌ Error al guardar/actualizar:', err);
+                showNotification('❌ Error: ' + (err.message || err.code || 'desconocido'), 'error');
             } finally {
                 btn.disabled = false;
-                btn.innerHTML = '<i class="fas fa-save mr-2"></i> Guardar Reporte';
+                updateSaveButton();
             }
+        }
+
+        function updateSaveButton() {
+            const btn = document.getElementById('save-btn');
+            const cancelBtn = document.getElementById('cancel-edit-btn');
+            const banner = document.getElementById('editing-banner');
+
+            if (editingReportId) {
+                btn.innerHTML = '<i class="fas fa-rotate mr-2"></i> Actualizar Reporte';
+                cancelBtn.classList.remove('hidden');
+                banner.classList.add('show');
+            } else {
+                btn.innerHTML = '<i class="fas fa-save mr-2"></i> Guardar Reporte';
+                cancelBtn.classList.add('hidden');
+                banner.classList.remove('show');
+            }
+        }
+
+        function resetFormAndEditMode() {
+            editingReportId = null;
+            document.getElementById('report-form').reset();
+            document.querySelectorAll('.falta-item').forEach(l => l.classList.remove('checked'));
+            document.getElementById('detencionFecha').value = '';
+            document.getElementById('detencionHorario').value = '';
+            document.getElementById('editing-report-name').textContent = '';
+            setInitialDate();
+            populateEstudiantes('');
+            updateSaveButton();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function loadReportForEdit(rep) {
+            editingReportId = rep.id;
+
+            const form = document.getElementById('report-form');
+
+            form.elaboradoPor.value = rep.elaboradoPor || '';
+            form.curso.value = rep.curso || '';
+
+            // Primero cargamos los estudiantes del curso y luego seleccionamos al estudiante.
+            populateEstudiantes(rep.curso || '');
+            form.estudiante.value = rep.estudiante || '';
+
+            form.fecha.value = rep.fecha || '';
+            form.hora.value = rep.hora || '';
+            form.lugar.value = rep.lugar || '';
+            form.lugarOtro.value = rep.lugarOtro || '';
+            form.descripcion.value = rep.descripcion || '';
+            form.detencionFecha.value = rep.detencionFecha || '';
+            form.detencionHorario.value = rep.detencionHorario || '';
+
+            // Limpiar y volver a marcar todas las casillas guardadas.
+            document.querySelectorAll('.falta-item input[type="checkbox"]').forEach(cb => {
+                cb.checked = false;
+                cb.closest('.falta-item')?.classList.remove('checked');
+            });
+
+            const markChecked = (name, values) => {
+                const selected = new Set(values || []);
+                document.querySelectorAll(`input[name="${name}"]`).forEach(cb => {
+                    cb.checked = selected.has(cb.value);
+                    cb.closest('.falta-item')?.classList.toggle('checked', cb.checked);
+                });
+            };
+
+            markChecked('faltasMuyLeves', rep.faltasMuyLeves);
+            markChecked('faltasLeves', rep.faltasLeves);
+            markChecked('faltasGraves', rep.faltasGraves);
+            markChecked('faltasMuyGraves', rep.faltasMuyGraves);
+            markChecked('indicadores', rep.indicadoresDisruptivos);
+            markChecked('razones', rep.razonesPresuntas);
+
+            document.getElementById('editing-report-name').textContent =
+                `${rep.estudiante || 'Estudiante'} · ${rep.curso || 'Curso'} · ID: ${rep.id}`;
+
+            updateSaveButton();
+
+            // Llevar al usuario al formulario para editar.
+            document.getElementById('report-form').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+
+            showNotification('✏️ Reporte cargado. Realiza los cambios y pulsa "Actualizar Reporte".');
         }
 
         function listenReports() {
@@ -807,6 +961,7 @@
 
         function renderReports(saved) {
             const list = document.getElementById('reports-list');
+            window.savedReports = saved;
             document.getElementById('count-badge').textContent = saved.length;
 
             if (saved.length === 0) {
@@ -850,6 +1005,7 @@
                         </div>
                         <div class="flex items-center gap-2 flex-shrink-0">
                             <button class="details-btn"><i class="fas fa-chevron-down mr-1"></i> Ver detalles</button>
+                            <button class="edit-btn" data-id="${rep.id}" title="Editar reporte"><i class="fas fa-pen mr-1"></i> Editar</button>
                             <button class="delete-btn" data-id="${rep.id}" title="Eliminar reporte"><i class="fas fa-trash-alt"></i></button>
                         </div>
                     </div>
@@ -890,6 +1046,15 @@
         });
 
         document.addEventListener('click', (e) => {
+            const editBtn = e.target.closest('.edit-btn');
+            if (editBtn) {
+                const id = editBtn.dataset.id;
+                const report = window.savedReports?.find(r => r.id === id);
+                if (report) loadReportForEdit(report);
+                else showNotification('❌ No se encontró el reporte para editar.', 'error');
+                return;
+            }
+
             const delBtn = e.target.closest('.delete-btn');
             if (delBtn) deleteReport(delBtn.dataset.id);
 
@@ -944,10 +1109,27 @@
             }
         });
 
+        document.getElementById('cancel-edit-btn').addEventListener('click', () => {
+            if (!editingReportId) return;
+            if (confirm('¿Cancelar la edición? Los cambios que aún no se han actualizado se perderán.')) {
+                resetFormAndEditMode();
+                showNotification('Edición cancelada.');
+            }
+        });
+
+        document.getElementById('cancel-edit-top').addEventListener('click', () => {
+            if (!editingReportId) return;
+            if (confirm('¿Cancelar la edición? Los cambios que aún no se han actualizado se perderán.')) {
+                resetFormAndEditMode();
+                showNotification('Edición cancelada.');
+            }
+        });
+
         function init() {
             console.log('🚀 Inicializando aplicación...');
             setInitialDate();
             buildAllCheckboxes();
+            updateSaveButton();
             updateConnectionStatus(false, 'Conectando...');
             listenReports();
             showNotification('✅ Conectado al sistema DECE.');
